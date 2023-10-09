@@ -4,11 +4,11 @@ import Footer from "./components/Footer";
 
 const App = () => {
   return (
-    <>
+    <div className="max-w-7xl mx-auto">
       <Navbar />
       <Outlet />
       <Footer />
-    </>
+    </div>
   );
 };
 

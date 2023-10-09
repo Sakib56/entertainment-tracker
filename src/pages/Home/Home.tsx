@@ -1,8 +1,9 @@
+import Episodes from "../Episodes/Episodes";
 
 const Home = () => {
     return (
         <div>
-            <h1>home page</h1>
+            <Episodes/>
         </div>
     );
 };
