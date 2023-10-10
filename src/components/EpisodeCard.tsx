@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Episode } from "../graphql/__generated__/graphql";
-
+import { useAppDispatch } from "../redux/hooks";
+import { addToBeWatchedList, addToWatchedList, addToWatchingList } from "../redux/slices/watchTrackerSlice";
 type episodeType = {
     episode: Episode;
 };
@@ -8,6 +9,22 @@ type episodeType = {
 const EpisodeCard = ({ episode }: episodeType) => {
     const image = episode?.characters[5]?.image;
     const [show, setShow] = useState(false)
+
+    const dispatch = useAppDispatch()
+
+    const handleAddToWatchedList = (episode: Episode) => {
+        console.log(episode);
+        dispatch(addToWatchedList(episode))
+    }
+    const handleAddToWatchingList = (episode: Episode) => {
+        console.log(episode);
+        dispatch(addToWatchingList(episode))
+    }
+    const handleAddToBeWatchedList = (episode: Episode) => {
+        console.log(episode);
+        dispatch(addToBeWatchedList(episode))
+    }
+
     return (
         <div className="bg-white rounded shadow-2xl p-3 font-mono overflow-hidden border border-yellow-600">
             <figure><img className="w-full h-52 transition duration-1000 ease-in-out hover:scale-125 transform" src={`${image}`} alt={`$25{episode?.name}}`} /></figure>
@@ -24,16 +41,15 @@ const EpisodeCard = ({ episode }: episodeType) => {
                     <div onClick={() => setShow(!show)} className="text-right absolute right-0">
                         <button className="btn-xs bg-white w-fit rounded-full text-lg">X</button>
                     </div>
-                    <div className="text-center">
+                    <div onClick={() => handleAddToWatchedList(episode)} className="text-center">
                         <button className="bg-white bg-opacity-50 text-white px-5 py-1 w-1/2">Watched</button>
                     </div>
-                    <div className="text-center">
+                    <div onClick={() => handleAddToWatchingList(episode)} className="text-center">
                         <button className="bg-white bg-opacity-50 text-white px-5 py-1 w-1/2">Watching</button>
                     </div>
-                    <div className="text-center">
+                    <div onClick={() => handleAddToBeWatchedList(episode)}  className="text-center">
                         <button className="bg-white bg-opacity-50 text-white px-5 py-1">To Be Watched</button>
                     </div>
-
                 </div>
             </div>
         </div>

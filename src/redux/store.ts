@@ -1,9 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
-// ...
+import watchTrackerSlice from './slices/watchTrackerSlice'
 
-const store = configureStore({
+
+export const store = configureStore({
     reducer: {
-
+        episodes: watchTrackerSlice,
     },
 })
 
