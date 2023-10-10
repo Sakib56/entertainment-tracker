@@ -1,10 +1,13 @@
 import { Episode } from "../graphql/__generated__/graphql";
+import { useAppDispatch } from "../redux/hooks";
+import { removeFromWatchedList } from "../redux/slices/watchTrackerSlice";
 
 type episodeType = {
     episode: Episode;
 };
 const WatchedTable = ({ episode }: episodeType) => {
     console.log(episode);
+    const dispatch = useAppDispatch()
     return (
         <tbody>
             {/* row 1 */}
@@ -23,7 +26,7 @@ const WatchedTable = ({ episode }: episodeType) => {
                     </div>
                 </td>
                 <td>
-                    remove
+                <button onClick={() => dispatch(removeFromWatchedList(episode?.id as string))} className="border px-4 py-1 text-red-500">Delete</button>
                 </td>
 
             </tr>

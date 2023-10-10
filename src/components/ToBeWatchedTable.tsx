@@ -1,10 +1,25 @@
 import { Episode } from "../graphql/__generated__/graphql";
+import { useAppDispatch } from "../redux/hooks";
+import { addToWatchedList, addToWatchingList, removeFromToBeWatchedList } from "../redux/slices/watchTrackerSlice";
 
 type episodeType = {
     episode: Episode;
 };
 const ToBeWatchedTable = ({ episode }: episodeType) => {
     console.log(episode);
+    const dispatch = useAppDispatch()
+
+    const handleAddToWatchedList = (episode: Episode) => {
+        console.log(episode);
+        dispatch(addToWatchedList(episode))
+        dispatch(removeFromToBeWatchedList(episode?.id as string))
+    }
+    const handleAddToWatchingList = (episode: Episode) => {
+        console.log(episode);
+        dispatch(addToWatchingList(episode))
+        dispatch(removeFromToBeWatchedList(episode?.id as string))
+    }
+
     return (
         <tbody>
             {/* row 1 */}
@@ -22,8 +37,11 @@ const ToBeWatchedTable = ({ episode }: episodeType) => {
                         </div>
                     </div>
                 </td>
-                <td>
-                    remove
+                <td className="flex flex-col justify-center align-middle space-y-1">
+                    <button onClick={() => handleAddToWatchingList(episode)} className="border px-4 py-1">Watching</button>
+                    <button onClick={() => handleAddToWatchedList(episode)} className="border px-4 py-1"> Watched </button>
+                    <button onClick={() => dispatch(removeFromToBeWatchedList(episode?.id as string))} className="border px-4 py-1 text-red-500">Delete</button>
+
                 </td>
 
             </tr>

@@ -23,7 +23,7 @@ const WatchList = () => {
                                 </tr>
                             </thead>
                             {
-                                watchedLists?.map((episode) => <WatchedTable key={episode.id} episode={episode as Episode} />)
+                                toBeWatchedLists?.map((episode) => <ToBeWatchedTable key={episode.id} episode={episode as Episode} />)
                             }
 
                         </table>
@@ -32,7 +32,7 @@ const WatchList = () => {
 
                 </div>
                 <div>
-                    <h1 className="border-b-2 text-lg md:text-xl text-white text-center">To be Watched</h1>
+                    <h1 className="border-b-2 text-lg md:text-xl text-white text-center">Watching</h1>
                     <div className="overflow-x-auto border">
                         <table className="table text-white text-opacity-70">
 
@@ -52,7 +52,7 @@ const WatchList = () => {
 
                 </div>
                 <div>
-                    <h1 className="border-b-2 text-lg md:text-xl text-white text-center">To be Watched</h1>
+                    <h1 className="border-b-2 text-lg md:text-xl text-white text-center">Watched</h1>
                     <div className="overflow-x-auto border">
                         <table className="table text-white text-opacity-70">
 
@@ -63,7 +63,7 @@ const WatchList = () => {
                                 </tr>
                             </thead>
                             {
-                                toBeWatchedLists?.map((episode) => <ToBeWatchedTable key={episode.id} episode={episode as Episode} />)
+                                watchedLists?.map((episode) => <WatchedTable key={episode.id} episode={episode as Episode} />)
                             }
 
                         </table>
