@@ -18,63 +18,73 @@ export const watchTrackerSlice = createSlice({
     initialState,
     reducers: {
         addToWatchedList: (state, action: PayloadAction<Episode>) => {
-            const isExist = state.watchedLists.find(
-                (item) => item.id === action.payload.id
+            const inArray = state.watchedLists.find(
+                data => data.id === action.payload.id
             );
-            if (isExist) {
-                state.watchedLists;
-            } else {
+            const watchingList = state.watchingLists.filter(
+                data => data.id !== action.payload.id
+            );
+            const toBeWatchedList = state.toBeWatchedLists.filter(
+                data => data.id !== action.payload.id
+            );
+            if (!inArray) {
                 state.watchedLists.push(action.payload);
+                state.watchingLists = watchingList;
+                state.toBeWatchedLists = toBeWatchedList;
             }
         },
 
         removeFromWatchedList: (state, action: PayloadAction<string>) => {
-            const filterWatchList = state.watchedLists.filter(
-                (item) => item.id !== action.payload
+            const removeWatchedList = state.watchedLists.filter(
+                data => data.id !== action.payload
             );
-            state.watchedLists = filterWatchList;
+            state.watchedLists = removeWatchedList;
         },
 
         addToWatchingList: (state, action: PayloadAction<Episode>) => {
-            const isExist = state.watchingLists.find(
-                (item) => item.id === action.payload.id
+            const inArray = state.watchingLists.find(
+                data => data.id === action.payload.id
             );
-            const watchList = state.watchedLists.filter(
-                (item) => item.id !== action.payload.id
+            const watchedList = state.watchedLists.filter(
+                data => data.id !== action.payload.id
             );
-            if (isExist) {
-                state.watchingLists;
-            } else {
+            const toBeWatchedList = state.toBeWatchedLists.filter(
+                data => data.id !== action.payload.id
+            );
+            if (!inArray) {
                 state.watchingLists.push(action.payload);
-                state.watchedLists = watchList;
+                state.watchedLists = watchedList;
+                state.toBeWatchedLists = toBeWatchedList;
             }
         },
 
         removeFromWatchingList: (state, action: PayloadAction<string>) => {
             const filterWatchingList = state.watchingLists.filter(
-                (item) => item.id !== action.payload
+                data => data.id !== action.payload
             );
             state.watchingLists = filterWatchingList;
         },
 
         addToBeWatchedList: (state, action: PayloadAction<Episode>) => {
-            const isExist = state.toBeWatchedLists.find(
-                (item) => item.id === action.payload.id
+            const inArray = state.toBeWatchedLists.find(
+                data => data.id === action.payload.id
+            );
+            const watchedList = state.watchedLists.filter(
+                data => data.id !== action.payload.id
             );
             const watchingList = state.watchingLists.filter(
-                (item) => item.id !== action.payload.id
+                data => data.id !== action.payload.id
             );
-            if (isExist) {
-                state.toBeWatchedLists;
-            } else {
+            if (!inArray) {
                 state.toBeWatchedLists.push(action.payload);
+                state.watchedLists = watchedList;
                 state.watchingLists = watchingList;
             }
         },
 
         removeFromToBeWatchedList: (state, action: PayloadAction<string>) => {
             const filterWatchedList = state.toBeWatchedLists.filter(
-                (item) => item.id !== action.payload
+                data => data.id !== action.payload
             );
             state.toBeWatchedLists = filterWatchedList;
         },
